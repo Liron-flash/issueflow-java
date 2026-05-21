@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,6 +48,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Map<String, Object>> handleMissingRequestParameter(
+            MissingServletRequestParameterException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.badRequest().body(
+                baseErrorBody(
+                        HttpStatus.BAD_REQUEST,
+                        "Missing required request parameter: " + ex.getParameterName(),
+                        request
+                )
+        );
+    }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidJson(
             HttpMessageNotReadableException ex,
@@ -89,6 +105,16 @@ public class GlobalExceptionHandler {
         );
     }
 
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthenticationException(
+            AuthenticationException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                baseErrorBody(HttpStatus.UNAUTHORIZED, "Invalid username or password", request)
+        );
+    }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, Object>> handleAccessDenied(
             AccessDeniedException ex,

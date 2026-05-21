@@ -24,11 +24,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "Ticket id is required")
-    @Positive(message = "Ticket id must be positive")
-    @Column(name = "ticket_id", nullable = false)
+    private Long id;    @Column(name = "ticket_id", nullable = false)
     private Long ticketId;
 
     @NotNull(message = "Author id is required")

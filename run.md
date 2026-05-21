@@ -17,6 +17,19 @@ The project includes the Maven Wrapper, so Maven does not need to be installed g
 
 ---
 
+## Default Seed Data
+
+On application startup, the system creates default demo data if it does not already exist.
+
+Default users:
+
+| Username | Password | Role |
+|---|---|---|
+| jdoe | secret | DEVELOPER |
+| admin2 | adminpass | ADMIN |
+| test_dev | secret | DEVELOPER |
+
+Default projects are also created automatically so the API can be tested immediately after starting the application on a fresh database.
 ## Project Directory
 
 Run all commands from the project root:
