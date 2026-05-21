@@ -77,7 +77,3 @@ Help me add safe validation tests that run during mvnw clean package without req
 Help me prepare run.md and prompts.md for final submission.
 The documentation should explain setup, database, build, run, authentication, smoke tests, and AI usage.
 ```
-
-All suggestions were reviewed, adapted, and tested manually before being included in the project.
-
-I am responsible for the submitted implementation.
